@@ -1,4 +1,6 @@
 from persona import persona
+from io import open
+
 misContactos = [persona(123,'Luis', 'casa 1'), persona(321, 'Julio', 'Casa 2')]
 
 def crearContacto(numero, nombre, direccion):
@@ -72,7 +74,30 @@ def eliminarContacto(nombre):
             print("Dato no encontrado...")
 
 def crearReporte():
-    print("Creando reporte HTML")
+    documento = open("reporte contactos.html","w")
+    documento.write("<!doctype html>\n")
+    documento.write("<html>\n")
+    documento.write("<head>\n")
+    documento.write("\t<title>Agenda 2022</title>\n")
+    documento.write("</head>\n")
+    documento.write("<body>\n")
+    documento.write("\t<center>\n")
+    documento.write("\t<h1>Mis contactos</h1>\n")
+    documento.write('\t<table border="1">\n')
+    documento.write("\t\t<tr>\n")
+    documento.write("\t\t\t<td>Número de teléfono</td><td>Nombre</td><td>Dirección</td>\n")
+    for i in range(len(misContactos)):
+        documento.write("\t\t<tr>\n")
+        documento.write("\t\t\t<td>" + str(misContactos[i].verNumero()) + "</td><td>" + misContactos[i].verNombre() + "</td><td>" + misContactos[i].verDireccion() + "</td>")
+        documento.write("\t\t</tr>\n")
+
+    documento.write("\t\t</tr>\n")
+    documento.write("\t</table>\n")
+    documento.write("\t</center>\n")
+    documento.write("</body>\n")
+    documento.write("</html>")
+    documento.close()
+    print("Reporte HTML creado con éxito...")
 
 def main():
     op = 0
